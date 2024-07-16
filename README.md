@@ -1,2 +1,2 @@
 # apgraded-fishstick
-Joey Faskha
+Joey

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghost Animation</title>
+</head>
+<body>
+    <svg id="canvas" viewbox="0 0 2000 1000" width="2000" height="1000"></svg>
+    <script>
+        let canvas = document.getElementById("canvas");
+
+    
+
+        let ghosts = [];
+        let colors = ["red", "green", "blue", "yellow", "cyan", "magenta", "black", "purple", "orange"];
+        let eyeRadius = 20;
+        let pupilRadius = 10;
+        let headRadius = 60;
+        let bodyWidth = 2 * headRadius;
+        let bodyHeight = 100;
+        let FootRadius = 20;
+        let eyeSpacing = 25; //from center of head
+   
+        //You'll need to create two event listeners.
+
+        /* You'll need a click event listener on the canvas that draws a randomly
+        colored ghost at the precise location of the click and places a JavaScript
+        reference to that ghost into the ghosts array*/
+
+       canvas.addEventListener('click', spawn, false);
+
+        spawn(event);
+
+        function spawn(event) {
+
+            randomColor = colors[Math.floor(colors.length * Math.random())];
+            let ghost = document.createElementNS("http://www.w3.org/2000/svg", "g");
+            let head = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            head.setAttribute("r", headRadius);
+            head.setAttribute("cx", headRadius + event.offsetX);
+            head.setAttribute("cy", headRadius + event.offsetY);
+            head.setAttribute("fill", randomColor);
+            ghost.appendChild(head); 
+            let body = document.createElementNS ("http://www.w3.org/2000/svg", "rect")
+            body.setAttribute("width", bodyWidth);
+            body.setAttribute("height", bodyHeight);
+            body.setAttribute("fill", randomColor);
+            body.setAttribute("x", event.offsetX);
+            body.setAttribute("y", headRadius + event.offsetY);
+            ghost.appendChild(body);
+            let rightEye = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            rightEye.setAttribute("r", eyeRadius);
+            rightEye.setAttribute("cx", headRadius - eyeSpacing + event.offsetX);
+            rightEye.setAttribute("cy", headRadius + event.offsetY);
+            rightEye.setAttribute("fill", "white")
+            ghost.appendChild(rightEye);
+            let leftEye = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            leftEye.setAttribute("r", eyeRadius);
+            leftEye.setAttribute("cx", headRadius + eyeSpacing + event.offsetX);
+            leftEye.setAttribute("cy", headRadius + event.offsetY);
+            leftEye.setAttribute("fill", "white")
+            ghost.appendChild(leftEye);
+            let leftPupil = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            leftPupil.setAttribute("r", pupilRadius);
+            leftPupil.setAttribute("fill", randomColor);
+            leftPupil.setAttribute("cx", headRadius + eyeSpacing + event.offsetX);
+            leftPupil.setAttribute("cy", headRadius + event.offsetY);
+            ghost.appendChild(leftPupil);
+            let rightPupil = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            rightPupil.setAttribute("r", pupilRadius);
+            rightPupil.setAttribute("fill", randomColor);
+            rightPupil.setAttribute("cx", headRadius - eyeSpacing + event.offsetX);
+            rightPupil.setAttribute("cy", headRadius + event.offsetY);
+            ghost.appendChild(rightPupil);
+            let leftFoot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            leftFoot.setAttribute("r", FootRadius);
+            leftFoot.setAttribute("fill", randomColor);
+            leftFoot.setAttribute("cx", FootRadius + event.offsetX);
+            leftFoot.setAttribute("cy", headRadius + bodyHeight + event.offsetY);
+            ghost.appendChild(leftFoot);
+            let middleFoot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            middleFoot.setAttribute("r", FootRadius);
+            middleFoot.setAttribute("fill", randomColor);
+            middleFoot.setAttribute("cx", FootRadius * 3 + event.offsetX);
+            middleFoot.setAttribute("cy", headRadius + bodyHeight + event.offsetY);
+            ghost.appendChild(middleFoot);
+            let rightFoot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            rightFoot.setAttribute("r", FootRadius);
+            rightFoot.setAttribute("fill", randomColor);
+            rightFoot.setAttribute("cx", FootRadius * 5 + event.offsetX);
+            rightFoot.setAttribute("cy", headRadius + bodyHeight + event.offsetY);
+            ghost.appendChild(rightFoot);
+            canvas.appendChild(ghost); 
+        }
+
+
+        /* You'll need a mousemove listener on the canvas that makes the eyes
+        of each ghost in the ghosts array move in the direction of the current
+        mouse coordinates */
+    </script>
+</body>
+</html>

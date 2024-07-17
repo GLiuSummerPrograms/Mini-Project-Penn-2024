@@ -29,6 +29,34 @@
         /* You'll need a mousemove listener on the canvas that makes the eyes
         of each ghost in the ghosts array move in the direction of the current
         mouse coordinates */
+
+        
+
+        canvas.addEventListener('mousemove', moveEyes, false);
+
+
+    function moveEyes (event) {
+    let tx = event.offsetX
+    let ty = event.offsetY
+
+    ghosts.forEach(ghost); {
+    let ox = ghostEyesX;
+    let oy = ghostEyesY;
+    let dx = 0;
+    let dy = 0;
+    let ds = 10;
+    
+    if(tx != ox) {
+    let m = (ty - oy) / (tx - ox);
+    dx = Math.sign(tx - ox) * ds / Math.sqrt(1 + m * m);
+    dy = m * dx;
+    } else {
+    dy = Math.sign(ty - oy) * ds;
+    }
+    }
+    let ghostEyesX = ox + dx; //the new x-coordinate for the moving object
+    let ghostEyesY = oy + dy; //the new y-coordinate for the moving object
+    }
     </script>
 </body>
 </html>
